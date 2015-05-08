@@ -1,6 +1,9 @@
 var restify = require('restify');
 var mongojs = require('mongojs');
 
+var config = require('./config.json');
+console.log(config.db);
+
 var db = mongojs('mongodb://bart:simpson@ds031632.mongolab.com:31632/fodb', ['autos']);
 
 var server = restify.createServer();
@@ -34,3 +37,17 @@ server.post("/autos", function (req, res, next) {
       });
     return next();
 });
+
+server.del('/autos/:id', function (req, res, next) {
+   db.autos.remove({
+      _id: req.params.id
+   }, function (err, data) {
+      res.writeHead(200, {
+         'Content-Type': 'application/json; charset=utf-8'
+      });
+      console.log(err);
+      res.end(JSON.stringify(true));
+   });
+   return next();
+});
+
