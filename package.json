@@ -19,6 +19,7 @@
   "devDependencies": {
     "chai": "^2.3.0",
     "mocha": "^2.2.4",
-    "mongojs": "^0.18.2"
+    "mongojs": "^0.18.2",
+    "restify": "^3.0.2"
   }
 }
