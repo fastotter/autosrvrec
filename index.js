@@ -2,10 +2,8 @@ var restify = require('restify');
 var mongojs = require('mongojs');
 
 var config = require('./config.json');
-console.log(config.db);
 
-var db = mongojs('mongodb://bart:simpson@ds031632.mongolab.com:31632/fodb', ['autos']);
-
+var db = mongojs(config.db, ['autos']);
 var server = restify.createServer();
 
 server.use(restify.acceptParser(server.acceptable));
