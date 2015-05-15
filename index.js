@@ -1,5 +1,6 @@
 var restify = require('restify');
 var mongojs = require('mongojs');
+var objectId = mongojs.ObjectID;
 
 var config = require('./config.json');
 
@@ -36,9 +37,21 @@ server.post("/autos", function (req, res, next) {
     return next();
 });
 
+server.get('/autos/:id', function (req, res, next) {
+   db.autos.findOne({
+      _id: objectId(req.param.id)
+   }, function (err, data) {
+      res.writeHead(200, {
+         'Content-Type': 'application/json; charset=utf-8'
+      });
+      res.end(JSON.stringify(data));
+   });
+   return next();
+});
+
 server.del('/autos/:id', function (req, res, next) {
    db.autos.remove({
-      _id: req.params.id
+      _id: objectId(req.params.id)
    }, function (err, data) {
       res.writeHead(200, {
          'Content-Type': 'application/json; charset=utf-8'
