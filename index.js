@@ -1,3 +1,5 @@
+'use strict';
+
 var restify = require('restify');
 var mongojs = require('mongojs');
 var objectId = mongojs.ObjectID;
@@ -41,6 +43,7 @@ server.get('/autos/:id', function (req, res, next) {
    db.autos.findOne({
       _id: objectId(req.param.id)
    }, function (err, data) {
+      if (err) return console.error(err);
       res.writeHead(200, {
          'Content-Type': 'application/json; charset=utf-8'
       });
@@ -53,6 +56,7 @@ server.del('/autos/:id', function (req, res, next) {
    db.autos.remove({
       _id: objectId(req.params.id)
    }, function (err, data) {
+      if (err) return console.error(err);
       res.writeHead(200, {
          'Content-Type': 'application/json; charset=utf-8'
       });
