@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 'use string';
 
+var restify = require('restify');
+var client = restify.createJsonClient({
+    url: 'http://localhost:3000'
+});
+
 var yargs = require('yargs')
    .usage('Usage: $0 <command> [options]')
    .count('verbose')
