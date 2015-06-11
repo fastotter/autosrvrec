@@ -17,11 +17,6 @@ var yargs = require('yargs')
 
 var command = argv._[0];
 
-var restify = require('restify');
-var client = restify.createJsonClient({
-   url: 'http://localhost:3000'
-});
-
 switch (command) {
     case 'getautos':
         argv = yargs.reset()
@@ -35,14 +30,11 @@ switch (command) {
             })
         .argv;
 
-        console.log('getautos command received');
         var endpoint = '/autos';
         if (argv.i != null) {
             endpoint = endpoint + '/' + argv.id;
         }
-	console.log(endpoint);
-        console.log('i value is ');
-        console.log(argv.id);
+
         client.get(endpoint, function (err, req, res, autos) {
         if (err) {
             console.log("An error occurred >>>>>>");
